@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel CRM - Segmentação Inteligente</title>
+    <!-- Incluindo Tailwind CSS para deixar o visual moderno e bonito -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-indigo-700 mb-2">🎯 Inteligência de Clientes CRM</h1>
+            <p class="text-gray-500 text-lg">Simulação do Front-end (Site da Empresa) consumindo a API de AI em tempo real</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Formulário de Entrada (O que o usuário vê) -->
+            <div class="md:w-2/3 bg-white p-6 rounded-lg shadow-md border-t-4 border-indigo-500">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Dados do Novo Cliente</h2>
+                
+                <form id="crmForm" class="space-y-4">
+                    <!-- Seção Geral -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Renda Anual (R$)</label>
+                            <input type="number" id="Renda" value="50000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Gasto Total (R$)</label>
+                            <input type="number" id="Gasto_Total" value="1500" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Gasto Médio por Compra</label>
+                            <input type="number" id="Gasto_Medio_Compra" value="150" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Total de Compras</label>
+                            <input type="number" id="Total_Compras" value="10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-gray-700 mt-6 pt-4 border-t">Canais de Compra</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500">Web</label>
+                            <input type="number" id="Compras_Web" value="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500">Loja Física</label>
+                            <input type="number" id="Compras_Loja" value="5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500">Catálogo</label>
+                            <input type="number" id="Compras_Catalogo" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500">Com Desconto</label>
+                            <input type="number" id="Compras_Com_Desconto" value="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border">
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-gray-700 mt-6 pt-4 border-t">Gastos por Tipo (R$)</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div><label class="block text-xs text-gray-500">Vinhos</label><input type="number" id="Gasto_Vinhos" value="500" class="w-full p-2 border rounded"></div>
+                        <div><label class="block text-xs text-gray-500">Carnes</label><input type="number" id="Gasto_Carnes" value="300" class="w-full p-2 border rounded"></div>
+                        <div><label class="block text-xs text-gray-500">Frutas</label><input type="number" id="Gasto_Frutas" value="50" class="w-full p-2 border rounded"></div>
+                        <div><label class="block text-xs text-gray-500">Peixes</label><input type="number" id="Gasto_Peixes" value="80" class="w-full p-2 border rounded"></div>
+                        <div><label class="block text-xs text-gray-500">Doces</label><input type="number" id="Gasto_Doces" value="40" class="w-full p-2 border rounded"></div>
+                        <div><label class="block text-xs text-gray-500">Joias/Ouro</label><input type="number" id="Gasto_Ouro" value="100" class="w-full p-2 border rounded"></div>
+                    </div>
+
+                    <button type="button" onclick="enviarParaAPI()" class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded transition duration-200 shadow-lg">
+                        🚀 Fazer Predição com IA
+                    </button>
+                </form>
+            </div>
+
+            <!-- Resultado Retornado pela API -->
+            <div class="md:w-1/3">
+                <div class="bg-indigo-900 text-white p-6 rounded-lg shadow-md sticky top-6">
+                    <h2 class="text-2xl font-bold mb-4 border-b border-indigo-700 pb-2">Resposta da API</h2>
+                    
+                    <div id="loading" class="hidden text-center py-4">
+                        <span class="animate-pulse">Aguardando a IA calcular... 🧠</span>
+                    </div>
+
+                    <div id="resultado" class="hidden space-y-4">
+                        <div class="bg-indigo-800 p-3 rounded flex justify-between items-center">
+                            <p class="text-sm text-indigo-300">Status da Req:</p>
+                            <p class="font-bold text-green-400" id="res_status">-</p>
+                        </div>
+                        
+                        <div class="bg-indigo-800 p-3 rounded">
+                            <p class="text-sm text-indigo-300 mb-2">Clusters do Cliente:</p>
+                            <div class="flex space-x-2 text-xs font-bold">
+                                <span class="bg-indigo-900 border border-indigo-700 px-2 py-1 rounded">Geral: <span id="res_geral" class="text-yellow-300"></span></span>
+                                <span class="bg-indigo-900 border border-indigo-700 px-2 py-1 rounded">Canal: <span id="res_canais" class="text-yellow-300"></span></span>
+                                <span class="bg-indigo-900 border border-indigo-700 px-2 py-1 rounded">Prod: <span id="res_produtos" class="text-yellow-300"></span></span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-3 rounded text-white shadow border border-purple-500">
+                            <p class="text-xs uppercase tracking-wider font-bold mb-1 opacity-80">🛍️ Vitrine Ideal (Produtos)</p>
+                            <p class="font-medium text-sm" id="res_produtos_msg">-</p>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 rounded text-white shadow border border-blue-500">
+                            <p class="text-xs uppercase tracking-wider font-bold mb-1 opacity-80">📱 Ponto de Contato (Canais)</p>
+                            <p class="font-medium text-sm" id="res_canais_msg">-</p>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-3 rounded text-white shadow border border-emerald-500">
+                            <p class="text-xs uppercase tracking-wider font-bold mb-1 opacity-80">🔥 Estratégia de Campanha</p>
+                            <p class="font-bold text-md leading-tight" id="res_acao">-</p>
+                        </div>
+                    </div>
+
+                    <div id="esperando" class="text-center py-10 text-indigo-400 border-2 border-dashed border-indigo-700 rounded">
+                        Preencha os dados e clique em "Fazer Predição" para ver o back-end em ação.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // O código Javascript (A alma do Front-end)
+        async function enviarParaAPI() {
+            // Esconde resultados anteriores e mostra o loading
+            document.getElementById('esperando').classList.add('hidden');
+            document.getElementById('resultado').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            // 1. Coleta os dados HTML para montar nosso JSON ('payload')
+            const dadosCliente = {
+                Renda: parseFloat(document.getElementById('Renda').value),
+                Gasto_Total: parseFloat(document.getElementById('Gasto_Total').value),
+                Gasto_Medio_Compra: parseFloat(document.getElementById('Gasto_Medio_Compra').value),
+                Total_Compras: parseInt(document.getElementById('Total_Compras').value),
+                Compras_Web: parseInt(document.getElementById('Compras_Web').value),
+                Compras_Loja: parseInt(document.getElementById('Compras_Loja').value),
+                Compras_Catalogo: parseInt(document.getElementById('Compras_Catalogo').value),
+                Compras_Com_Desconto: parseInt(document.getElementById('Compras_Com_Desconto').value),
+                Gasto_Vinhos: parseFloat(document.getElementById('Gasto_Vinhos').value),
+                Gasto_Carnes: parseFloat(document.getElementById('Gasto_Carnes').value),
+                Gasto_Frutas: parseFloat(document.getElementById('Gasto_Frutas').value),
+                Gasto_Peixes: parseFloat(document.getElementById('Gasto_Peixes').value),
+                Gasto_Doces: parseFloat(document.getElementById('Gasto_Doces').value),
+                Gasto_Ouro: parseFloat(document.getElementById('Gasto_Ouro').value)
+            };
+
+            try {
+                // 2. Chama a API no servidor (Back-end)
+                const resposta = await fetch('http://localhost:8000/api/v1/segmentar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dadosCliente)
+                });
+
+                if (!resposta.ok) {
+                    throw new Error('Erro na comunicação com a API');
+                }
+
+                // 3. Recebe a resposta e converte de JSON para objeto Javascript
+                const dadosRetornados = await resposta.json();
+
+                // 4. Injeta os dados da API de volta na tela HTML
+                document.getElementById('res_status').innerText = dadosRetornados.status.toUpperCase();
+                document.getElementById('res_geral').innerText = dadosRetornados.clusters.geral;
+                document.getElementById('res_canais').innerText = dadosRetornados.clusters.canais;
+                document.getElementById('res_produtos').innerText = dadosRetornados.clusters.produtos;
+                
+                // Exibe as mensagens específicas
+                document.getElementById('res_produtos_msg').innerText = dadosRetornados.recomendacao_produtos;
+                document.getElementById('res_canais_msg').innerText = dadosRetornados.recomendacao_canais;
+                
+                document.getElementById('res_acao').innerText = dadosRetornados.acao_marketing;
+
+                // Mostra a tela final
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('resultado').classList.remove('hidden');
+
+            } catch (erro) {
+                alert("Erro ao conectar à API! Verifique se o Uvicorn ('uvicorn api:app --reload') está rodando no terminal.");
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('esperando').classList.remove('hidden');
+                console.error(erro);
+            }
+        }
+    </script>
+</body>
+</html>

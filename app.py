@@ -142,40 +142,30 @@ if st.button("Classificar Cliente 🚀", type="primary", use_container_width=Tru
     
     with res_col1:
         st.success(f"**Geral (K-Means):** Cluster {cluster_geral}")
-        perfil_geral = {
-            0: "Baixo ticket / Alta sensibilidade a preço",
-            1: "Standard / Ticket médio",
-            2: "Alto valor / Maior potencial de retenção",
-        }.get(cluster_geral, "Perfil não mapeado")
+        perfil_geral = "VIP / Premium (Alto LTV)" if cluster_geral == 1 else "Retenção / Descontos (Público de entrada)"
         st.write(f"*Perfil:* {perfil_geral}")
         
     with res_col2:
         st.info(f"**Canais (Consenso):** Cluster {cluster_canais}")
         perfil_canais = {
-            0: "Comprador digital e caçador de ofertas",
-            1: "Omnichannel equilibrado",
-            2: "Preferência por loja física",
+            0: "Comprador Omnichannel agressivo (Loja Física forte e Catálogo)",
+            1: "Comprador esporádico (Foco em mídias digitais)"
         }.get(cluster_canais, "Perfil não mapeado")
         st.write(f"*Perfil:* {perfil_canais}")
         
     with res_col3:
         st.warning(f"**Produtos (Consenso):** Cluster {cluster_produtos}")
         perfil_produtos = {
-            0: "Foco em itens essenciais",
-            1: "Focado em carnes e vinhos",
-            2: "Mix premium e variedade",
+            0: "Alto consumo premium (Vinhos e Carnes)",
+            1: "Gasto contido (Combo de essenciais)"
         }.get(cluster_produtos, "Perfil não mapeado")
         st.write(f"*Perfil:* {perfil_produtos}")
 
     # Ação Direcionada (Motor de Regras)
     st.markdown("### 🎯 Recomendação de Marketing (Matriz de Ações)")
     
-    # A matriz de ações é baseada na combinação dos clusters para direcionar estratégias específicas:
-    if cluster_geral == 2 or cluster_produtos == 2:
-        st.success("**Ação VIP:** Cliente de alto valor. Acionar contato personalizado com curadoria de luxo e eventos exclusivos.")
-    elif cluster_geral == 1 and cluster_produtos == 1:
-        st.info("**Ação Cross-Sell:** Enviar cupons digitais via App/E-mail com ofertas cruzadas de Vinhos e Carnes para tentar aumentar o ticket médio e fidelizar.")
-    elif cluster_geral == 0 and cluster_canais == 0:
-        st.warning("**Ação Retenção/Caçador:** Ativar via campanhas massivas focadas 100% em descontos nos canais digitais (E-mail/Web).")
+    # A matriz de ações reflete exatamente o back-end (api.py)
+    if cluster_geral == 1:
+        st.success("**VIP / Premium:** Acionar contato personalizado com curadoria avançada. Alto LTV (Customer Lifetime Value).")
     else:
-        st.info("**Ação Padrão:** Nutrição através de newsletter com destaques semanais nas lojas físicas.")
+        st.warning("**Retenção / Descontos:** Público de entrada com menor renda. Focar em ofertas para aumentar frequência de compra.")
